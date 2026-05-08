@@ -1,127 +1,145 @@
 #!/bin/bash
 
-BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+echo "========================================"
+echo "      LINUX ADMINISTRATION TOOL"
+echo "========================================"
 
-# Colors
-GREEN="\033[1;32m"
-CYAN="\033[1;36m"
-YELLOW="\033[1;33m"
-RED="\033[1;31m"
-NC="\033[0m"
+echo ""
+echo "1. Current Logged In User"
+whoami
 
-# Detect Termux
-if [ -d "/data/data/com.termux/files" ]; then
-    PLATFORM="Termux (Android)"
-else
-    PLATFORM="Linux"
-fi
+echo ""
+echo "----------------------------------------"
+echo "2. Present Working Directory"
+pwd
 
-pause() {
-    read -p "Press Enter to continue..."
-}
+echo ""
+echo "----------------------------------------"
+echo "3. List Files and Directories"
+ls -l
 
-show_header() {
-clear 2>/dev/null
-echo -e "${CYAN}"
-echo "=========================================="
-echo "        Linux Admin Toolkit"
-echo "   Created by Raghav Singh"
-echo "=========================================="
-echo -e "${NC}"
-echo "User     : $(whoami)"
-echo "Platform : $PLATFORM"
-echo "Date     : $(date)"
-echo
-}
+echo ""
+echo "----------------------------------------"
+echo "4. Create a New Directory"
+mkdir admin_demo
+echo "Directory 'admin_demo' created"
 
-cpu_info() {
-show_header
-echo -e "${GREEN}CPU Information${NC}"
-echo
+echo ""
+echo "----------------------------------------"
+echo "5. Change Directory"
+cd admin_demo
+pwd
 
-if command -v lscpu >/dev/null; then
-    lscpu
-else
-    cat /proc/cpuinfo 2>/dev/null | head -20
-fi
+echo ""
+echo "----------------------------------------"
+echo "6. Create Files"
+touch file1.txt
+touch file2.txt
+echo "Files Created"
 
-pause
-}
+echo ""
+echo "----------------------------------------"
+echo "7. Display Files"
+ls
 
-network_info() {
-show_header
-echo -e "${GREEN}Network Information${NC}"
-echo
+echo ""
+echo "----------------------------------------"
+echo "8. Write Data into File"
+echo "Linux Administration Practical" > file1.txt
 
-if command -v ip >/dev/null; then
-    ip a
-elif command -v ifconfig >/dev/null; then
-    ifconfig
-else
-    echo "No network tool available."
-fi
+echo ""
+echo "----------------------------------------"
+echo "9. Display File Content"
+cat file1.txt
 
-pause
-}
+echo ""
+echo "----------------------------------------"
+echo "10. Copy File"
+cp file1.txt copyfile.txt
+echo "File Copied"
 
-view_logs() {
-show_header
-echo -e "${GREEN}System Logs${NC}"
-echo
+echo ""
+echo "----------------------------------------"
+echo "11. Rename File"
+mv copyfile.txt renamedfile.txt
+echo "File Renamed"
 
-if command -v journalctl >/dev/null; then
-    journalctl -n 30 --no-pager
-else
-    echo "journalctl not available on this system."
-fi
+echo ""
+echo "----------------------------------------"
+echo "12. File Permissions"
+chmod 777 renamedfile.txt
+ls -l
 
-pause
-}
+echo ""
+echo "----------------------------------------"
+echo "13. Check Date and Time"
+date
 
-while true
-do
-show_header
+echo ""
+echo "----------------------------------------"
+echo "14. Check Calendar"
+cal
 
-echo -e "${YELLOW}1.${NC} System information"
-echo -e "${YELLOW}2.${NC} User management"
-echo -e "${YELLOW}3.${NC} Service management"
-echo -e "${YELLOW}4.${NC} Backup directory"
-echo -e "${YELLOW}5.${NC} CPU information"
-echo -e "${YELLOW}6.${NC} Network information"
-echo -e "${YELLOW}7.${NC} View system logs"
-echo -e "${YELLOW}8.${NC} Exit"
-echo
+echo ""
+echo "----------------------------------------"
+echo "15. Check Disk Space"
+df -h
 
-read -p "Select option: " opt
+echo ""
+echo "----------------------------------------"
+echo "16. Check Memory Usage"
+free -h
 
-case "$opt" in
-1)
-bash "$BASE_DIR/scripts/system_info.sh"
-;;
-2)
-bash "$BASE_DIR/scripts/user_manage.sh"
-;;
-3)
-bash "$BASE_DIR/scripts/service_manage.sh"
-;;
-4)
-bash "$BASE_DIR/scripts/backup.sh"
-;;
-5)
-cpu_info
-;;
-6)
-network_info
-;;
-7)
-view_logs
-;;
-8)
-exit 0
-;;
-*)
-echo -e "${RED}Invalid option${NC}"
-sleep 1
-;;
-esac
-done
+echo ""
+echo "----------------------------------------"
+echo "17. Running Processes"
+ps -aux
+
+echo ""
+echo "----------------------------------------"
+echo "18. Top Command for System Monitoring"
+top
+
+echo ""
+echo "----------------------------------------"
+echo "19. Create New User"
+sudo useradd student
+echo "User Created"
+
+echo ""
+echo "----------------------------------------"
+echo "20. Set Password for User"
+sudo passwd student
+
+echo ""
+echo "----------------------------------------"
+echo "21. Display Current Users"
+who
+
+echo ""
+echo "----------------------------------------"
+echo "22. System Information"
+uname -a
+
+echo ""
+echo "----------------------------------------"
+echo "23. IP Address Information"
+ip a
+
+echo ""
+echo "----------------------------------------"
+echo "24. Remove File"
+rm file2.txt
+echo "File Removed"
+
+echo ""
+echo "----------------------------------------"
+echo "25. Remove Directory"
+cd ..
+rm -r admin_demo
+echo "Directory Removed"
+
+echo ""
+echo "========================================"
+echo " Linux Administration Tool Completed"
+echo "========================================"
